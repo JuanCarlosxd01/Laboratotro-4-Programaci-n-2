@@ -52,7 +52,7 @@ public class AhorcadoPalabraRandom extends BaseAhorcado {
     @Override
     public void UpdatePalabraMostrada(char letra) {
 
-        String nuevaPalabra = " ";
+        String nuevaPalabra = "";
 
         for (int i = 0; i < palabraSecreta.length(); i++) {
 

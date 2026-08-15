@@ -3,6 +3,7 @@ package ahorcados;
 
 import javax.swing.*;
 import java.awt.*;
+import ahorcados.logica.*;
 
 public class PanelJuego extends JPanel{
     private JLabel lblAhorcado;
@@ -13,12 +14,14 @@ public class PanelJuego extends JPanel{
     private JTextField txtLetra;
     private JButton btnAdivinar;
     private JButton btnVolver;
+    private BaseAhorcado juego;
 
     private CardLayout transicion;
     private JPanel contenedor;
     private Image fondo = new ImageIcon(getClass().getResource("/ahorcados/FondoAhorcado2.png")).getImage();
     
-    public PanelJuego(JPanel contenedor, CardLayout transicion){
+    public PanelJuego(JPanel contenedor, CardLayout transicion, BaseAhorcado juego){
+        this.juego = juego;
         this.contenedor = contenedor;
         this.transicion = transicion;
         setLayout(new BorderLayout());
@@ -26,6 +29,9 @@ public class PanelJuego extends JPanel{
         crearPanelArriba();
         crearPanelMedio();
         crearPanelAbajo(); 
+        
+        actualizarInterfaz();
+        configurarBoton();
     }
     
     
@@ -54,7 +60,6 @@ public class PanelJuego extends JPanel{
         panelDibujo.add(lblAhorcado);
         
         JPanel panelInformacion = new JPanel();
-        panelInformacion.setOpaque(false);
         panelInformacion.setOpaque(false);
         panelInformacion.setLayout(new BoxLayout(panelInformacion, BoxLayout.Y_AXIS));
         
@@ -111,6 +116,7 @@ public class PanelJuego extends JPanel{
             transicion.show(contenedor, "MENU");
         });
         panelInferior.add(btnVolver);
+        panelInferior.add(Box.createVerticalStrut(100));
         add(panelInferior, BorderLayout.SOUTH);
     }
     
@@ -126,6 +132,67 @@ public class PanelJuego extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(fondo , 0, 0, getWidth(), getHeight(),this );
+    }
+    
+    private void configurarBoton(){
+        btnAdivinar.addActionListener(e ->{
+            String texto = txtLetra.getText().trim();
+            if(texto.length() != 1){
+                JOptionPane.showMessageDialog(this,"Ingrese una sola letra");
+                return;
+            }
+            char letra = texto.charAt(0);
+            try{
+                juego.jugar(letra);
+                actualizarInterfaz();
+                if(juego.verificarVictoria()){
+                    JOptionPane.showMessageDialog(this, "¡Ganaste! La palabra era: " + juego.getPalabraSecreta());
+                    btnAdivinar.setEnabled(false);
+                    txtLetra.setEnabled(false);
+                }
+
+                else if(juego.verificarDerrota()){
+                    JOptionPane.showMessageDialog(this,"Perdiste. La palabra era: "+ juego.getPalabraSecreta());
+                    btnAdivinar.setEnabled(false);
+                    txtLetra.setEnabled(false);
+                }
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
+            txtLetra.setText("");
+        });
+    }
+    
+    private void actualizarInterfaz(){
+        actualizarPalabra();
+        lblIntentos.setText( "Intentos restantes: " + juego.getIntentosRestantes());
+        actualizarLetras();
+        int errores = 6 - juego.getIntentosRestantes();
+        actualizarAhorcado(errores);
+    }
+    
+    private void actualizarPalabra(){
+        String palabra = juego.getPalabraMostrada();
+        String mostrar = "";
+        for(int i = 0; i < palabra.length(); i++){
+            mostrar += palabra.charAt(i) + " ";
+        }
+        lblPalabra.setText(mostrar);
+    }
+    
+    private void actualizarLetras(){
+        String correctas = "";
+        String incorrectas = "";
+        for(char letra : juego.getLetrasIngresadas()){
+            if(juego.verificarLetra(letra)){
+                correctas += letra + " ";
+            }
+            else{
+                incorrectas += letra + " ";
+            }
+        }
+        lblCorrectas.setText("Correctas: " + correctas);
+        lblIncorrectas.setText("Incorrectas: " + incorrectas);
     }
 
 }
