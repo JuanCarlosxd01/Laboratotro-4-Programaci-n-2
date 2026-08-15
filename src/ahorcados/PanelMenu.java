@@ -53,13 +53,13 @@ public class PanelMenu extends JPanel{
     
     private void pedirPalabra(){
         btnPalabraFija.addActionListener(e ->{
-            String palabra =JOptionPane.showInputDialog(this, "Ingrese la palabra secreta");
+            String palabra =JOptionPane.showInputDialog(this, "Ingrese alguna palabra secreta");
             if(palabra == null){
                 return;
             }
             palabra = palabra.trim();
             if(palabra.isEmpty()){
-                JOptionPane.showMessageDialog(this,"Debe ingresar una palabra");
+                JOptionPane.showMessageDialog(this, "La casilla esta vacia, debe ingresar una palabra");
                 return;
             }
             BaseAhorcado juego =new AhorcadoPalabraFija(palabra);
@@ -89,7 +89,7 @@ public class PanelMenu extends JPanel{
             gestor.agregarPalabra("ZANCUDO");
             gestor.agregarPalabra("CIEMPIES");
             gestor.agregarPalabra("TIBURON");
-            gestor.agregarPalabra("SIAMESES");
+            gestor.agregarPalabra("CAFETERIA");
         }catch(PalabraDuplicadaException e){
             JOptionPane.showMessageDialog(
                 this,
@@ -100,7 +100,7 @@ public class PanelMenu extends JPanel{
     
     private void abrirJuego(BaseAhorcado juego){
         PanelJuego panelJuego =new PanelJuego(contenedor, transicion, juego);
-        contenedor.add( panelJuego, "JUEGO" );
+        contenedor.add(  panelJuego,"JUEGO" );
         transicion.show(contenedor, "JUEGO");
     }
   

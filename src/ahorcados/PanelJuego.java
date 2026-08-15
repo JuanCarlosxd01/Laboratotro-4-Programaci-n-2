@@ -1,4 +1,3 @@
-
 package ahorcados;
 
 import javax.swing.*;
@@ -78,7 +77,7 @@ public class PanelJuego extends JPanel{
         txtLetra.setHorizontalAlignment(JTextField.CENTER);
         txtLetra.setFont(new Font("Arial", Font.BOLD, 20));
         
-        btnAdivinar = new JButton("ADIVINAR");
+        btnAdivinar = new JButton("ADIVINANDO");
         btnAdivinar.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         lblCorrectas = new JLabel("Correctas: ");
@@ -149,6 +148,7 @@ public class PanelJuego extends JPanel{
                     JOptionPane.showMessageDialog(this, "¡Ganaste! La palabra era: " + juego.getPalabraSecreta());
                     btnAdivinar.setEnabled(false);
                     txtLetra.setEnabled(false);
+                    transicion.show(contenedor, "MENU");
                 }
 
                 else if(juego.verificarDerrota()){
