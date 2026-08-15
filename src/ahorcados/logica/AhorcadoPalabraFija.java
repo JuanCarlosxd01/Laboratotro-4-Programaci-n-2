@@ -4,10 +4,13 @@
  */
 package ahorcados.logica;
 
+import java.util.ArrayList;
 /**
  *
  * @author diego
  */
 public class AhorcadoPalabraFija {
     
+    
+
 }

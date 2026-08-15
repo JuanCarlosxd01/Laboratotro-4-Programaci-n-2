@@ -8,6 +8,10 @@ package ahorcados.logica;
  *
  * @author diego
  */
-public class AhorcadoJuego {
+public interface AhorcadoJuego {
+
+    void establecerPalabraSecreta(String palabra);
+
+    void jugar(char letra) throws Exception;
     
 }
