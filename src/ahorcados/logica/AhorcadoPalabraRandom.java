@@ -15,7 +15,7 @@ public class AhorcadoPalabraRandom extends BaseAhorcado {
 
     public AhorcadoPalabraRandom(GestorDePalabras gestor) {
         this.gestor = gestor;
-        establecerPalabraSecreta(gestor.obtenerPalabraAleatoria());
+        establecerPalabraSecreta(gestor.obtenerPalabra());
     }
 
     @Override
@@ -70,6 +70,7 @@ public class AhorcadoPalabraRandom extends BaseAhorcado {
 
     @Override
     public boolean verificarVictoria() {
+        
         return palabraMostrada.equals(palabraSecreta);
     }
 }
