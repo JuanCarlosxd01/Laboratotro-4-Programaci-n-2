@@ -4,10 +4,10 @@
  */
 package ahorcados.excepciones;
 
-/**
- *
- * @author diego
- */
-public class LetraInvalidaException {
-    
+public class LetraInvalidaException extends Exception {
+
+    public LetraInvalidaException(String mensaje) {
+        super(mensaje);
+    }
 }
+
