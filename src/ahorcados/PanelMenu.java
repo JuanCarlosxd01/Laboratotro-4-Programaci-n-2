@@ -10,6 +10,7 @@ public class PanelMenu extends JPanel{
     private JPanel contenedor;
     private JButton btnPalabraFija;
     private JButton btnPalabraAzar;
+    private Image fondo = new ImageIcon(getClass().getResource("/ahorcados/FondoAhorcado2.png")).getImage();
     
     public PanelMenu(JPanel contenedor, CardLayout transicion){
         this.contenedor = contenedor;
@@ -54,6 +55,12 @@ public class PanelMenu extends JPanel{
             transicion.show(contenedor, "JUEGO");
         });
         
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(fondo , 0, 0, getWidth(), getHeight(),this );
     }
   
 }

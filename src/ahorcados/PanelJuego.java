@@ -16,10 +16,13 @@ public class PanelJuego extends JPanel{
 
     private CardLayout transicion;
     private JPanel contenedor;
+    private Image fondo = new ImageIcon(getClass().getResource("/ahorcados/FondoAhorcado2.png")).getImage();
     
     public PanelJuego(JPanel contenedor, CardLayout transicion){
+        this.contenedor = contenedor;
+        this.transicion = transicion;
         setLayout(new BorderLayout());
-        setBackground(Color.BLACK);
+        setBackground(Color.WHITE);
         crearPanelArriba();
         crearPanelMedio();
         crearPanelAbajo(); 
@@ -43,7 +46,7 @@ public class PanelJuego extends JPanel{
     
     private void crearPanelMedio(){
         JPanel panelCentro = new JPanel(new GridLayout(1, 2, 20, 20));
-        panelCentro.setOpaque(true);
+        panelCentro.setOpaque(false);
         JPanel panelDibujo = new JPanel(new GridBagLayout());
         panelDibujo.setOpaque(false);
         lblAhorcado = new JLabel();
@@ -62,6 +65,7 @@ public class PanelJuego extends JPanel{
         
         JLabel lblIngresar = new JLabel("Ingresa una letra");
         lblIngresar.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblIngresar.setForeground(Color.WHITE);
         
         lblIngresar.setAlignmentX(Component.CENTER_ALIGNMENT);
         txtLetra = new JTextField();
@@ -103,6 +107,9 @@ public class PanelJuego extends JPanel{
         JPanel panelInferior = new JPanel();
         panelInferior.setOpaque(false);
         btnVolver = new JButton("Volver al Menu");
+        btnVolver.addActionListener(e ->{
+            transicion.show(contenedor, "MENU");
+        });
         panelInferior.add(btnVolver);
         add(panelInferior, BorderLayout.SOUTH);
     }
@@ -114,4 +121,11 @@ public class PanelJuego extends JPanel{
 
         lblAhorcado.setIcon(new ImageIcon(escalada));
     }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(fondo , 0, 0, getWidth(), getHeight(),this );
+    }
+
 }
