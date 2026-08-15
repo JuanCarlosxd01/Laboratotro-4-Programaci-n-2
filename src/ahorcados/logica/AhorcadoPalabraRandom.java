@@ -28,6 +28,7 @@ public class AhorcadoPalabraRandom extends BaseAhorcado {
         }
 
         if (letrasIngresadas.contains(letra)) {
+            
             throw new LetraRepetidaException("Esta letra ya fue elegida, intenta nuevamente");
         }
 
@@ -43,6 +44,8 @@ public class AhorcadoPalabraRandom extends BaseAhorcado {
 
     @Override
     public boolean verificarLetra(char letra) {
+        
+        
         return palabraSecreta.indexOf(letra) >= 0;
     }
 

@@ -15,6 +15,7 @@ import java.util.ArrayList;
     protected String palabraSecreta;
     
     protected String palabraMostrada;
+    
     protected ArrayList <Character> letrasIngresadas;
     protected int intentosRestantes;
     protected final int maximoIntentos = 6;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
         intentosRestantes = maximoIntentos;
         
         letrasIngresadas = new ArrayList<>();
+        
         dibujoAhorcado = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
@@ -43,7 +45,7 @@ import java.util.ArrayList;
         }
     }
 
-    public abstract void UpdaterPalabraMostrada(char letra);
+    public abstract void UpdatePalabraMostrada(char letra);
 
     public abstract boolean verificarLetra(char letra);
     
