@@ -1,13 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package ahorcados;
 
-/**
- *
- * @author nosoy
- */
-public class VentanaPrincipal {
+import javax.swing.*;
+import java.awt.*;
+
+
+public class VentanaPrincipal extends JFrame{
+    private CardLayout transicion;
+    private JPanel contenedor;
     
+    public VentanaPrincipal(){
+        setTitle("Juego del Ahorcado");
+        setSize(900, 700);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        transicion = new CardLayout();
+        contenedor = new JPanel(transicion);
+        
+        PanelMenu menu = new PanelMenu(contenedor, transicion);
+        contenedor.add(menu, "MENU");
+        
+        add(contenedor);
+        transicion.show(contenedor, "MENU");
+        setVisible(true);
+    }
 }
