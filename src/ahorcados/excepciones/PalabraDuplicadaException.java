@@ -4,10 +4,9 @@
  */
 package ahorcados.excepciones;
 
-/**
- *
- * @author diego
- */
-public class PalabraDuplicadaException {
-    
+public class PalabraDuplicadaException extends Exception {
+
+    public PalabraDuplicadaException(String mensaje) {
+        super(mensaje);
+    }
 }
