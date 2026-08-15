@@ -4,11 +4,114 @@ package ahorcados;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelJuego {
+public class PanelJuego extends JPanel{
+    private JLabel lblAhorcado;
+    private JLabel lblPalabra;
+    private JLabel lblIntentos;
+    private JLabel lblCorrectas;
+    private JLabel lblIncorrectas;
+    private JTextField txtLetra;
+    private JButton btnAdivinar;
+    private JButton btnVolver;
+
     private CardLayout transicion;
     private JPanel contenedor;
     
     public PanelJuego(JPanel contenedor, CardLayout transicion){
+        setLayout(new BorderLayout());
+        setBackground(Color.BLACK);
+        crearPanelArriba();
+        crearPanelMedio();
+        crearPanelAbajo(); 
+    }
+    
+    
+    private void crearPanelArriba(){
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.setOpaque(false);
+        JLabel lblTitulo = new JLabel("Ahorcado", SwingConstants.CENTER);
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
         
+        lblIntentos = new JLabel("Intentos restantes: 6");
+        lblIntentos.setForeground(Color.WHITE);
+        lblIntentos.setFont(new Font("Arial", Font.BOLD, 18));
+        panelSuperior.add(lblTitulo, BorderLayout.CENTER);
+        panelSuperior.add(lblIntentos, BorderLayout.EAST);
+        add(panelSuperior, BorderLayout.NORTH);
+    }
+    
+    private void crearPanelMedio(){
+        JPanel panelCentro = new JPanel(new GridLayout(1, 2, 20, 20));
+        panelCentro.setOpaque(true);
+        JPanel panelDibujo = new JPanel(new GridBagLayout());
+        panelDibujo.setOpaque(false);
+        lblAhorcado = new JLabel();
+        actualizarAhorcado(0);
+        panelDibujo.add(lblAhorcado);
+        
+        JPanel panelInformacion = new JPanel();
+        panelInformacion.setOpaque(false);
+        panelInformacion.setOpaque(false);
+        panelInformacion.setLayout(new BoxLayout(panelInformacion, BoxLayout.Y_AXIS));
+        
+        lblPalabra = new JLabel("_ _ _ _ _");
+        lblPalabra.setForeground(Color.WHITE);
+        lblPalabra.setFont(new Font("Arial", Font.BOLD, 35));
+        lblPalabra.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        JLabel lblIngresar = new JLabel("Ingresa una letra");
+        lblIngresar.setFont(new Font("Arial", Font.PLAIN, 18));
+        
+        lblIngresar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        txtLetra = new JTextField();
+        txtLetra.setMaximumSize(new Dimension(100, 40));
+        txtLetra.setHorizontalAlignment(JTextField.CENTER);
+        txtLetra.setFont(new Font("Arial", Font.BOLD, 20));
+        
+        btnAdivinar = new JButton("ADIVINAR");
+        btnAdivinar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        lblCorrectas = new JLabel("Correctas: ");
+        lblCorrectas.setForeground(Color.WHITE);
+        
+        lblCorrectas.setFont(new Font("Arial", Font.PLAIN, 18));
+        lblIncorrectas = new JLabel("Incorrectas: ");
+        lblIncorrectas.setForeground(Color.WHITE);
+        lblIncorrectas.setFont(new Font("Arial", Font.PLAIN, 18));
+        
+        panelInformacion.add(Box.createVerticalGlue());
+        panelInformacion.add(lblPalabra);
+        panelInformacion.add(Box.createVerticalStrut(40));
+        panelInformacion.add(lblIngresar);
+        panelInformacion.add(Box.createVerticalStrut(10));
+        panelInformacion.add(txtLetra);
+        panelInformacion.add(Box.createVerticalStrut(15));
+        panelInformacion.add(btnAdivinar);
+        panelInformacion.add(Box.createVerticalStrut(40));
+        panelInformacion.add(lblCorrectas);
+        panelInformacion.add(Box.createVerticalStrut(10));
+        panelInformacion.add(lblIncorrectas);
+        panelInformacion.add(Box.createVerticalGlue());
+        
+        panelCentro.add(panelDibujo);
+        panelCentro.add(panelInformacion);
+        add(panelCentro, BorderLayout.CENTER);
+    }
+    
+    private void crearPanelAbajo(){
+        JPanel panelInferior = new JPanel();
+        panelInferior.setOpaque(false);
+        btnVolver = new JButton("Volver al Menu");
+        panelInferior.add(btnVolver);
+        add(panelInferior, BorderLayout.SOUTH);
+    }
+    
+    private void actualizarAhorcado(int errores) {
+        ImageIcon imagen =new ImageIcon(getClass().getResource("/ahorcados/FondoAhorcado.png") );
+
+        Image escalada =imagen.getImage().getScaledInstance(300,350,Image.SCALE_SMOOTH);
+
+        lblAhorcado.setIcon(new ImageIcon(escalada));
     }
 }

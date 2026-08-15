@@ -49,6 +49,8 @@ public class PanelMenu extends JPanel{
         });
         
         btnPalabraAzar.addActionListener(e ->{
+            PanelJuego juego = new PanelJuego(contenedor, transicion);
+            contenedor.add(juego, "JUEGO");
             transicion.show(contenedor, "JUEGO");
         });
         
